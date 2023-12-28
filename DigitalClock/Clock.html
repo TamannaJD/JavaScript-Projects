@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Clock</title>
+    <style>
+        body{
+            background-color: black;
+        }
+        .Clock {
+             position: absolute;
+             color: red;
+             top: 50%;
+             left: 50%;
+             transform: translateX(-50%) translateY(-50%);
+             font-size: 60px;
+             font-family: Orbitron;
+             letter-spacing: 7px;
+        }
+    </style>
+</head>
+<body>
+    <div id="DigitalClock" class="Clock"></div>
+    <script type="text/javascript">
+
+        //To bind the data in a unit we will create a function.
+        function showTime()
+        {
+
+        var date = new Date();        //create variable(date) or Object of Date() method.
+        var hour = date.getHours();  //now we will create hour variable and use getHours() method.
+                                    //we do same thing for minutes and seconds.
+        var min = date.getMinutes();
+        var sec = date.getSeconds();
+       
+        var session = "AM";   //we will create a AM and PM (12 hour) format. By default that will be AM.
+        if(hour == 0)
+        {
+            hour = 12; //making it 12 hour format.
+        }
+
+        if(hour > 12)  
+        { 
+            //13-12 = 1 , 15 - 12 = 3 , 23 - 12 = 10
+            hour = hour - 12;
+            session = "PM";
+
+        }
+
+        //now we want our Hour, minutes and seconds in double digits.
+        // if(hour < 10)
+        // {
+        //     hour = "0" + hour;
+        // }
+        // if(min < 10)
+        // {
+        //     min = "0" + min;
+        // }
+        // if(sec < 10)
+        // {
+        //     sec = "0" + sec;
+        // }
+
+        //The upper code is big so we will write the same code with the help of ternery opertaor.
+
+            //condition, if true(?) then add "0" with hours, if false(:)then just write hour.
+        hour = (hour < 10) ? "0" + hour : hour;
+        min = (min < 10) ? "0" + min : min ;
+        sec = (sec < 10) ? "0" + sec : sec ;
+
+        //To print the values we use
+        document.getElementById("DigitalClock").innerHTML = hour + ":" + min + ":" + sec + " " + session;
+
+        //setTimeout() is a pre-defined function that call a perticular function again and again.
+        setTimeout(showTime,1000);  //1 sec = 1000 mili-sec and we have to write that in milisec. 
+        }
+       
+        showTime();   //now call the function.
+    </script>
+</body>
+</html>
